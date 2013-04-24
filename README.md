@@ -1,4 +1,1 @@
-ballin-octo-hipster
-===================
-
-A short program that will "crack" a "safe".
+Solutions for the exercises in "Programming in Haskell".
