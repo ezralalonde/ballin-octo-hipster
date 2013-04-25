@@ -67,3 +67,38 @@
         #.  The letter `a` is indented more than `xs` underneath it.
             This violates the Haskell indentation rules, so it must be changed
             to instead have the `a` and `x` (from `xs`) in the same column.
+
+4.  Show how the library function `last` that selects the last element of a 
+    non-empty list could be defined in terms of the library functions 
+    introduced in this chapter.  Can you think of another possible definition?
+
+    ---------------------------------------------------------------------------
+
+    The library functions introduced in this chapter include:
+
+        1.  `length`
+        #.  `div`
+        #.  `sum`
+        #.  `take`
+        #.  `reverse`
+        #.  `++`
+        #.  `product`
+        #.  `head`
+        #.  `tail`
+        #.  `!!`
+        #.  `drop`
+
+    Three ways that the function `last` could be defined include:
+
+a.  Using `head` and `reverse`:
+
+>last1 xs = head (reverse xs)
+
+b.  Using recursion and pattern matching:
+
+>last2 [x]    = x
+>last2 (x:xs) = last2 xs
+
+c.  Using `!!` and `length`:
+
+>last3 xs = xs!!((length xs) - 1)
