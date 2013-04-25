@@ -26,3 +26,15 @@
         #.  `2 * 3 + 4 * 5 == (2 * 3) + (4 * 5)`
 
         #.  `2 + 3 * 4 ^ 5 == 2 + (3 * (4 ^ 5))`
+
+2.  Work through the examples from this chapter using Hugs.
+
+    ---------------------------------------------------------------------------
+
+>double    x = x + x
+
+>quadruple x = double (double x)
+
+>factorial n = product [1..n]
+
+>average ns = sum ns `div` length ns
