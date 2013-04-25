@@ -102,3 +102,22 @@ b.  Using recursion and pattern matching:
 c.  Using `!!` and `length`:
 
 >last3 xs = xs!!((length xs) - 1)
+
+
+5.  Show how the library function `init` that removes the last element from
+    a non-empty list could similarly be defined in two different ways.
+
+a.  Using `take` and `length`
+
+>init1 xs = take ((length xs) - 1) xs
+
+b.  Using `reverse` and `tail`:
+
+>init2 xs =  reverse (tail (reverse xs))
+
+    This could be made pointless: `init2 = reverse . tail . reverse`
+
+c.  A third way, using recursion and pattern matching:
+
+>init3 [x]    = []
+>init3 (x:xs) = x:(init3 xs)
