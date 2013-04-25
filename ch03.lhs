@@ -77,3 +77,33 @@
 
             Prelude> :t twice
             twice :: (t -> t) -> t -> t
+
+4.  Why is it not feasible in general for functions to be instances of the 
+    `Eq` class?  When is it feasible?  Hint: two functions of the same type
+    are equal if they always return equal results for equal arguments.
+
+    ---------------------------------------------------------------------------
+
+    Functions cannot usually be instances of `Eq` because you would have to
+    check all possible inputs for all functions.  In cases where the functions
+    have very large, or infinite numbers of inputs, this is impractical or
+    impossible.
+
+    The issue of not being able to check all inputs is made worse if the
+    function is "polymorphic" in this case, you would not have to only check 
+    all inputs to the function for all types to determine equality, but you'd
+    have to check all inputs for all possible types.  This is clearly 
+    impractical.
+
+    It is feasible for functions to be instances of the `Eq` class if the range
+    of their inputs is very small, and they are defined on a single type, or
+    a fixed number of types.
+    
+    Note that even in cases that are amenable to inductive proof, such as the
+    multiple definitions of `init` or `tail` in Chapter 02, that they can be
+    an instance of `Eq`, since it is impossible for all inputs to be checked,
+    and I don't think that GHC or Hugs and friends are capable of proving
+    the equality of two functions symbolically, as a human might be able to do.
+
+    Finally, because of the infinite number of possible types of functions,
+    there may be no general way to define them all as an instance of `Eq`.
