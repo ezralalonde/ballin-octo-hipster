@@ -109,7 +109,25 @@ My solution:
 
         scalarproduct xs ys = sum $ zipWith (*) xs ys
 
+8.  Modify the Caesar cipher program to also handle upper-case letters.
 
+    The letters that will be swapped, in this case upper and lowercase letters:
+
+>letters = ['a' .. 'z'] ++ ['A' .. 'Z']
+
+    Shifts all characters in `xs` `n` places to the right.
+
+>rotate n xs | n >  0 = drop n xs ++ take n xs
+>            | n <= 0 = drop m xs ++ take m xs
+>                       where m = length xs + n
+
+    Creates a tuple with string and matching rotated string for translation.
+
+>getKey n xs = zip xs (rotate n xs)
+
+    Replaces a character with its corresponding item in the key.
+
+>swap key n | n `elem` map (fst) key = head [y | (x, y) <- key, x == n]
 >           | otherwise              = n
 
     Ciphers `xs` with the Caesae cypher produced by shifting all elements
