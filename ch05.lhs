@@ -90,3 +90,32 @@ My solution:
 >positions'      :: Eq a => a -> [a] -> [Int]
 >positions' n xs = find n (zip xs [0..])
 
+7.  The *scalar product* of two lists of integers `xs` and `ys` of length `n`
+    is given by the sum of the products of corresponding integers:
+        summation( i = 0, n - 1)(xs.i * ys.i)
+    In a similar manner to the function `chisqr`, show how a list comprehension
+    can be used to define a function `scalarproduct :: [Int] -> [Int] -> Int`
+    that returns the scalar product of two lists.  For example:
+
+        > scalarproduct [1, 2, 3] [4, 5, 6]
+        32
+
+    ---------------------------------------------------------------------------
+
+>scalarproduct       :: Num a => [a] -> [a] -> a
+>scalarproduct xs ys = sum [x * y | (x, y) <- zip xs ys]
+
+    This could also be defined as:
+
+        scalarproduct xs ys = sum $ zipWith (*) xs ys
+
+
+>           | otherwise              = n
+
+    Ciphers `xs` with the Caesae cypher produced by shifting all elements
+    of `letters` `n` characters to the right.
+    Use a negative `n` to reverse the cypher.
+
+>shift n xs = map (swap key) xs
+>           where key = getKey n letters
+
