@@ -43,3 +43,42 @@
             1 : 2 : init [3]
             1 : 2 : []
             [1, 2]
+
+3.  Without looking at the definitions from the standard prelude, define the
+    following library functions using recursion:
+    
+    -   Decide if all logical values in a list are `True`:
+        `and :: [Bool] -> Bool`
+    -   Concatenate a list of lists:
+        `concat :: [[a]] -> [a]`
+    -   Produce a list with `n` identical elements:
+        `replicate :: Int -> a -> [a]
+    -   Select the `n`th element of a list:
+        `(!!) :: [a] -> Int -> a
+    -   Decide if a value is an element of a list:
+        `elem :: Eq a => a -> [a] -> Bool
+    
+    Note: most of these functions are in fact defined in the prelude using
+    other library functions, rather than using explicit recursion.
+
+    ---------------------------------------------------------------------------
+
+>and' :: [Bool] -> Bool
+>and' [x]    = x
+>and' (x:xs) = x && (and' xs)
+
+>concat' :: [[a]] -> [a]
+>concat' [x]    = x
+>concat' (x:xs) = x ++ (concat' xs)
+
+>replicate' :: Int -> a -> [a]
+>replicate' 0 _ = []
+>replicate' n x = x : replicate' (n - 1) x
+
+>select :: [a] -> Int -> a
+>select (x:xs) 0 = x
+>select (x:xs) n = select xs (n - 1)
+
+>elem' :: Eq a => a -> [a] -> Bool
+>elem' x []     = False
+>elem' x (y:ys) = (x == y) || (elem' x ys)
