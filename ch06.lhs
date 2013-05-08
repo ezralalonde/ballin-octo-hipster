@@ -99,3 +99,26 @@
 >merge []       ys   = ys
 >merge (x:xs) (y:ys) | x <= y    = x : (merge xs (y:ys))
 >                    | otherwise = y : (merge (x:xs) ys)
+
+5.  Using `merge`, define a recursive function `msort :: Ord a => [a] -> [a]`
+    that implements "merge sort", in which the empty list and singleton lists
+    are already sorted, and any other list is sorted by merging together the 
+    two lists that result from sorting the two halves of the list separately.
+
+    Hint: first define a function `halve :: [a] -> [([a], [a])]` that splits
+    a list into two halves whose lengths differ by at most one.
+
+    ---------------------------------------------------------------------------
+
+    I think that the outer `[` and `]` in the type signature of `halve` 
+    are mistakes.  I return a tuple, not a list of tuples.
+
+>halve :: [a] -> ([a], [a])
+>halve xs = (take n xs, drop n xs)
+>         where n = length xs `div` 2
+
+>msort :: Ord a => [a] -> [a]
+>msort []  = []
+>msort [x] = [x]
+>msort xs  = merge (msort front) (msort back)
+>          where (front, back) = halve xs
