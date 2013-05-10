@@ -122,3 +122,72 @@
 >msort [x] = [x]
 >msort xs  = merge (msort front) (msort back)
 >          where (front, back) = halve xs
+
+6.  Using the five step process, define the library functions that calculate
+    the `sum` of a list of numbers, `take` a given number of elements from the 
+    start of a list, and select the `last` element of a non-empty list.
+
+    ---------------------------------------------------------------------------
+
+    The five steps are:
+
+        1.  Define the type
+        2.  Enumerate the cases
+        3.  Define the simple cases
+        4.  Define the other cases
+        5.  Generalise and simplify
+
+    - `sum`:
+        1.
+            sum' :: [Int] -> Int
+
+        2.
+            sum' []     = 
+            sum' (x:xs) = 
+
+        3.
+            sum' []     = 0
+
+        4.
+            sum' (x:xs) = x + sum xs
+
+        5.
+
+>sum' :: Num a => [a] -> a
+>sum' []     = 0
+>sum' (x:xs) = x + sum xs
+
+    - `take`:
+        1.
+            take' :: Int -> [a] -> [a]
+        2.
+            take' _ [] =
+            take' 0 _  = 
+            take' n xs = 
+        3.
+            take' _ [] = []
+            take' 0 _  = []
+        4.
+            take' n (x:xs) = x : (take' (n-1) xs)
+        5.
+
+>take' :: Integral n => n -> [a] -> [a]
+>take' _ []     = []
+>take' 0 _      = []
+>take' n (x:xs) = x : (take' (n-1) xs)
+
+    - `last`:
+        1.
+            last' :: [a] -> a
+        2.
+            last' [x] =
+            last' xs  = 
+        3.
+            last' [x] = x
+        4.
+            last' (x:xs) = last' xs
+        5.
+
+>last' :: [a] -> a
+>last' [x]      = x
+>last' (x:xs)   = last' xs
