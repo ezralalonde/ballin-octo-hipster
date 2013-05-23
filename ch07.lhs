@@ -28,3 +28,9 @@
 >                                   then ys
 >                                   else y: ys
 >                        ) [] xs
+
+3.  Redefine the functions `map f` and `filter p` using `foldr`.
+
+>map' f = foldr (\y ys -> f y : ys) []
+
+>filter' p = foldr (\y ys -> if p y then y:ys else ys) []
