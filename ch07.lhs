@@ -34,3 +34,12 @@
 >map' f = foldr (\y ys -> f y : ys) []
 
 >filter' p = foldr (\y ys -> if p y then y:ys else ys) []
+
+4.  Using `foldl`, define a function `dec2int :: [Int] -> Int` that converts
+    a decimal number into an integer.  For example:
+        
+        > dec2int [2, 3, 4, 5]
+        2345
+
+>dec2int :: [Int] -> Int
+>dec2int = foldl (\ys y -> 10 * ys + y) 0
