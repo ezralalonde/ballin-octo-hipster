@@ -43,3 +43,21 @@
 
 >dec2int :: [Int] -> Int
 >dec2int = foldl (\ys y -> 10 * ys + y) 0
+
+5.  Explain why the following definition is invalid:
+    
+        sumsqreven = compose [sum, map (^2), filter even]
+
+    ---------------------------------------------------------------------------
+
+    Lists in Haskell must have items of the same type.  It is not possible
+    to mix types in a list.  When we see that the types of the functions are:
+
+        sum :: Num a => [a] -> a
+        map (^2) :: Num a => [a] -> [a]
+        filter even :: Integral a => [a] -> [a]
+
+    we can see that this is illegal in Haskell's type system, even though the
+    functions could be composed as:
+
+        sum . map (^2) . filter even
