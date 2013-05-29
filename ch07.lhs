@@ -103,3 +103,65 @@
 
 >iterate' :: (a -> a) -> a -> [a]
 >iterate' f = unfold (const False) id (\x -> (f x))
+
+8.  Modify the string tranmitter program to detect simple transmission errors
+    using parity bits.  That is, each eight-bit binary number produced during
+    encoding is extended with a parity bit, set to one if the number contains
+    an odd number of ones, and to zero otherwise.  In turn, each resulting 
+    nine-bit binary number consumed during decoding is checked to ensure that
+    its parity bit is correct, with the parity bit being discarded if this is
+    the case, and a parity error reported otherwise.
+
+    Hint: the library function `error :: String -> a` terminates evaluation
+    and displays the given string as an error message.
+
+>bin2int :: [Bit] -> Int
+>bin2int = foldr (\x xs -> x + 2 * xs) 0
+
+>make8 :: [Bit] -> [Bit]
+>make8 = (take 8) . (++ repeat 0)
+
+>decode :: [Bit] -> String
+>decode = map (chr . bin2int) . chop8
+
+>encode :: String -> [Bit]
+>encode = concat . map (make8 . int2bin . ord)
+
+>transmit :: String -> String
+>transmit = decode . channel . encode
+
+>channel :: [Bit] -> [Bit]
+>channel = id
+
+    My solution:
+
+>countOnes :: [Bit] -> Int
+>countOnes = length . filter (==1)
+
+>check :: [Bit] -> ([Bit], Bit)
+>check xs = (xs, if (odd . countOnes) xs then 1 else 0)
+
+>addCheck :: [Bit] -> [Bit]
+>addCheck xs = content ++ [digit]
+>            where (content, digit) = check xs
+
+>encode' :: String -> [Bit]
+>encode' = concat . map (addCheck . make8 . int2bin . ord)
+
+
+>verify :: [Bit] -> [Bit]
+>verify xs = if length xs == 9 && lastBit == co 
+>               then original
+>               else error "parity check failed"
+>          where (original, co) = check (take 8 xs)
+>                lastBit = last xs
+
+
+>decode' :: [Bit] -> String
+>decode' = map (chr . bin2int) . (map verify) . (chop 9)
+
+>chop :: Int -> [Bit] -> [[Bit]]
+>chop n = unfold null (take n) (drop n)
+
+>transmit' :: String -> String
+>transmit' = decode' . channel . encode'
