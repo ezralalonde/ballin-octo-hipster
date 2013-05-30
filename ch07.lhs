@@ -165,3 +165,13 @@
 
 >transmit' :: String -> String
 >transmit' = decode' . channel . encode'
+
+9.  Test your new string transmitter program from the previous exercise 
+    using a faulty communication channel that forgets the first bit, which can
+    be modelled using the `tail` function on lists of bits.
+
+>transmit'' :: String -> String
+>transmit'' = decode' . channel' . encode'
+
+>channel' :: [Bit] -> [Bit]
+>channel' = tail
